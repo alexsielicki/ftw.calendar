@@ -15,8 +15,10 @@ class CalendarConfigView(BrowserView):
         """
 
         calendar_tool = getToolByName(self.context, 'portal_calendar', None)
-        if calendar_tool:
-            first = calendar_tool.getFirstWeekDay()
-        else:
-            first = getSite().portal_registry['plone.first_weekday']
+        # Alex commenting this out for Popejoy because getFirstWeekDay causes an error
+        # if calendar_tool:
+        #     first = calendar_tool.getFirstWeekDay()
+        # else:
+        #     first = getSite().portal_registry['plone.first_weekday']
+        first = getSite().portal_registry['plone.first_weekday']
         return (first < 6 and first + 1) or 0
