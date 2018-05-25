@@ -27,11 +27,23 @@ class CalendarJSONSource(object):
         return json.dumps(result, sort_keys=True)
 
     def get_event_brains(self):
+        # Alex adding code to filter out past events (end date is less than now)
+        endDate = DateTime(self.request.get('start'))
+        if endDate < DateTime():
+            endDate = DateTime()
         args = {
-            'start': {
-                'query': DateTime(self.request.get('end')), 'range': 'max'},
-            'end': {
-                'query': DateTime(self.request.get('start')), 'range': 'min'}}
+            'start':
+                {
+                    'query': DateTime(self.request.get('end')), 
+                    'range': 'max'
+                },
+            'end': 
+                {
+                    # 'query': DateTime(self.request.get('start')), 
+                    'query': endDate, 
+                    'range': 'min'
+                },
+        }
         
         if self.context.portal_type in ['Topic', 'Collection']:
             # Alex adding **args to make this work with old style Topics for Popejoy
