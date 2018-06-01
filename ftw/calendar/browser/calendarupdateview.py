@@ -93,7 +93,8 @@ class CalendarJSONSource(object):
             allday = True
         else:
             allday = False
-        return {"id": "UID_%s" % (brain.UID),
+        return {
+                "id": "UID_%s" % (brain.UID),
                 "title": title,
                 "start": start,
                 "end": end,
@@ -101,8 +102,10 @@ class CalendarJSONSource(object):
                 "editable": editable,
                 "allDay": allday,
                 "className": "state-" + str(brain.review_state) +
-                (editable and " editable" or ""),
-                "description": description}
+                (editable and " editable" or "") + (" portal_type_" + brain.portal_type),
+                "description": description,
+                "portal_type": brain.portal_type,
+                }
 
 
 class CalendarupdateView(BrowserView):

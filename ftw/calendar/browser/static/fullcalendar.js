@@ -3019,8 +3019,7 @@ function AgendaEventRenderer() {
 									setOuterHeight(
 										eventElement.width(colWidth - 10), // don't use entire width
 										slotHeight * Math.round(
-											(event.end ? ((event.end - event.start) / MINUTE_MS) : opt('defaultEventMinutes'))
-											/ opt('slotMinutes')
+											(event.end ? ((event.end - event.start) / MINUTE_MS) : opt('defaultEventMinutes')) / opt('slotMinutes')
 										)
 									);
 									eventElement.draggable('option', 'grid', [colWidth, 1]);
@@ -3634,12 +3633,12 @@ function DayEventRenderer() {
 			html +=
 				"<div class='" + className + event.className.join(' ') + "' style='position:absolute;z-index:8;left:"+left+"px'>" +
 					"<a" + (event.url ? " href='" + htmlEscape(event.url) + "'" : '') + ">" +
+						"<span class='fc-event-title'>" + htmlEscape(event.title) + "</span>" +
 						(!event.allDay && seg.isStart ?
 							"<span class='fc-event-time'>" +
 								htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) +
 							"</span>"
 						:'') +
-						"<span class='fc-event-title'>" + htmlEscape(event.title) + "</span>" +
 					"</a>" +
 					(seg.isEnd && (event.editable || event.editable === undefined && opt('editable')) && !opt('disableResizing') ?
 						"<div class='ui-resizable-handle ui-resizable-" + (rtl ? 'w' : 'e') + "'></div>"
