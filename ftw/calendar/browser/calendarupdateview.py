@@ -27,10 +27,10 @@ class CalendarJSONSource(object):
         return json.dumps(result, sort_keys=True)
 
     def get_event_brains(self):
-        # Alex adding code to filter out past events (end date is less than now)
+        # Alex adding code to filter out past events older than 6 months 
         endDate = DateTime(self.request.get('start'))
-        if endDate < DateTime():
-            endDate = DateTime()
+        if endDate < (DateTime()-(365/2)):
+            endDate = DateTime()-(365/2)
         args = {
             'start':
                 {
